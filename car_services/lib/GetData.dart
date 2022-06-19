@@ -2,6 +2,7 @@ import 'package:car_services/receipt.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 String sn = '', cr = '', r = '', im = '', qr = '';
 num ph = 0;
@@ -24,11 +25,14 @@ class GetData extends StatefulWidget {
 
 class _GetDataState extends State<GetData> {
   String status = 'Book Slot';
-  void setstatus() {
-    Navigator.pushNamed(context, "/receipt");
-    setState(() {
-      status = 'BOOKED!!!!!';
-    });
+  void setstatus() async {
+    DateTime? dt = await DatePicker.showDatePicker(context);
+    if (dt != null) {
+      Navigator.pushNamed(context, "/receipt");
+      setState(() {
+        status = 'BOOKED!!!!!';
+      });
+    }
   }
 
   @override
@@ -70,9 +74,12 @@ class _GetDataState extends State<GetData> {
           Padding(
             padding: EdgeInsets.all(20),
           ),
-          Text(
-            'Quick Preview:-$qr',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          Padding(
+            padding: EdgeInsets.all(30),
+            child: Text(
+              'Quick Preview:-$qr',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
           ),
           Padding(
             padding: EdgeInsets.all(30),
